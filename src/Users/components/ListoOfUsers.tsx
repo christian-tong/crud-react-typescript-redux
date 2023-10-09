@@ -1,3 +1,4 @@
+import { useAppSelector } from "../hooks/store";
 import {
   Card,
   Table,
@@ -9,34 +10,13 @@ import {
   Title,
   Badge,
 } from "@tremor/react";
-
-const users: {
-  id: string;
-  name: string;
-  email: string;
-  github: string;
-}[] = [
-  {
-    id: "1",
-    name: "Christian",
-    email: "christian.tongcruz96@gmail.com",
-    github: "christian-tong",
-  },
-  {
-    id: "2",
-    name: "Mary",
-    email: "mary.salinas@gmail.com",
-    github: "mary-salinas",
-  },
-  {
-    id: "3",
-    name: "Duke",
-    email: "duke.tong.salinas@gmail.com",
-    github: "duke-tong-salinas",
-  },
-];
+import { useUserACtions } from "../store/useUserActions";
 
 export default function ListOfUsers() {
+  const users = useAppSelector((state) => state.users);
+
+  const { removeUser } = useUserACtions();
+
   return (
     <Card>
       <Title className="flex gap-2">
@@ -81,8 +61,13 @@ export default function ListOfUsers() {
                     />
                   </svg>
                 </button>
-                <button className="m-2">
+                <button
+                  onClick={() => {
+                    removeUser(item.id);
+                  }}
+                  className="m-2">
                   <svg
+                    aria-label="Remove element"
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
