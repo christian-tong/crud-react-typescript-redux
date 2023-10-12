@@ -12,9 +12,8 @@ import {
 } from "@tremor/react";
 import { useUserACtions } from "../store/useUserActions";
 
-export default function ListOfUsers() {
+function ListOfUsers() {
   const users = useAppSelector((state) => state.users);
-
   const { removeUser } = useUserACtions();
 
   return (
@@ -31,7 +30,6 @@ export default function ListOfUsers() {
             <TableHeaderCell>EMAIL</TableHeaderCell>
           </TableRow>
         </TableHead>
-
         <TableBody>
           {users.map((item) => (
             <TableRow key={item.name}>
@@ -89,3 +87,5 @@ export default function ListOfUsers() {
     </Card>
   );
 }
+
+export default ListOfUsers;
